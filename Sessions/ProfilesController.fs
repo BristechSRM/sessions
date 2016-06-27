@@ -9,17 +9,16 @@ open ProfilesRepository
 type ProfilesController() = 
     inherit ApiController()
 
-    member x.Post(profile: Models.Profile) =
+    // TODO: Belongs in a base class or some other utility module
+    member private x.Try successCode op =
         try
-            let entity = profile |> DataTransform.Profiles.toEntity
-            x.Request.CreateResponse(HttpStatusCode.Created, add entity)
+            x.Request.CreateResponse(successCode, op())
         with
         | ex ->
             x.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message)
 
+    member x.Post(profile: Models.Profile) =
+        x.Try HttpStatusCode.Created (fun () -> profile |> DataTransform.Profiles.toEntity |> add)
+
     member x.Get() =
-        try
-            x.Request.CreateResponse(HttpStatusCode.OK, ProfilesRepository.getAll())
-        with
-        | ex ->
-            x.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message)
+        x.Try HttpStatusCode.OK ProfilesRepository.getAll
