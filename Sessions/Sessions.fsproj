@@ -55,6 +55,9 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Models.fs" />
+    <Compile Include="DataTransform.fs" />
+    <Compile Include="ProfilesController.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
@@ -62,14 +65,6 @@
   <ItemGroup>
     <Reference Include="Bristech.Srm.HttpConfig">
       <HintPath>..\packages\Bristech.Srm.HttpConfig.0.1.4\lib\net45\Bristech.Srm.HttpConfig.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Dapper">
-      <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Dapper.Contrib">
-      <HintPath>..\packages\Dapper.Contrib.1.43\lib\net45\Dapper.Contrib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.Core">
@@ -90,10 +85,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="MySql.Data">
-      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -120,6 +111,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Cors">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
       <Private>True</Private>
@@ -140,6 +132,13 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sessions.Data\Sessions.Data.fsproj">
+      <Name>Sessions.Data</Name>
+      <Project>{bac0180b-9015-4978-bcf2-e0d8a23089e6}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
