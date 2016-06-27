@@ -5,7 +5,6 @@ open System
 open System.Configuration
 open System.Threading
 
-
 (*
     Do not run Visual Studio as Administrator!
 
@@ -25,7 +24,5 @@ let main _ =
             let cancelSource = new CancellationTokenSource()
             cancelSource.Token.WaitHandle.WaitOne() |> ignore
         0
-
     with
-    | ex ->
-        1
+    | ex -> 1
