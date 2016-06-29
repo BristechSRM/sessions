@@ -4,7 +4,7 @@ open System
 open System.Net
 open System.Net.Http
 open System.Web.Http
-
+open Controllers.Common
 open ProfilesRepository
 
 // TODO: Belongs in a different namespace, since potentially pertains to all controllers
@@ -18,25 +18,14 @@ type ProfilesController() =
         let value = Int32.Parse(op.Value)
         id |> ProfilesRepository.update "rating" value
 
-    // TODO: Belongs in a base class or some other utility module
-    member private x.Try successCode op =
-        try
-            x.Request.CreateResponse(successCode, op())
-        with
-        | ex ->
-            x.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message)
-
     member x.Post(profile: Models.Profile) =
-        x.Try HttpStatusCode.Created (fun () -> profile |> DataTransform.Profiles.toEntity |> add)
+        Catch x HttpStatusCode.Created (fun () -> profile |> DataTransform.Profiles.toEntity |> add)
 
     member x.Get() =
-        x.Try HttpStatusCode.OK (fun () -> ProfilesRepository.getAll() |> Seq.map DataTransform.Profiles.toModel)
+        Catch x HttpStatusCode.OK (fun () -> ProfilesRepository.getAll() |> Seq.map DataTransform.Profiles.toModel)
 
     member x.Get(id : Guid) =
-        x.Try HttpStatusCode.OK (fun () -> ProfilesRepository.get id |> DataTransform.Profiles.toModel)
-
-    member x.Get(id : Guid) =
-        x.Try HttpStatusCode.OK (fun () -> ProfilesRepository.get id)
+        Catch x HttpStatusCode.OK (fun () -> ProfilesRepository.get id |> DataTransform.Profiles.toModel)
 
     member x.Patch(id: Guid, op: PatchOp) =
-        x.Try HttpStatusCode.NoContent (fun () -> patch id op)
+        Catch x HttpStatusCode.NoContent (fun () -> patch id op)

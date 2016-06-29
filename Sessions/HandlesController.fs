@@ -11,5 +11,5 @@ open HandlesRepository
 type HandlesController() = 
     inherit ApiController()
 
-    member x.Post(handle: Models.Handle) = Try x HttpStatusCode.Created (fun () -> handle |> DataTransform.Handles.toEntity |> add)
+    member x.Post(handle: Models.Handle) = Catch x HttpStatusCode.Created (fun () -> handle |> DataTransform.Handles.toEntity |> add)
    
