@@ -12,3 +12,7 @@ let add (profile: Entities.Profile) =
     guid
 
 let getAll () = Database.getConnection().GetAll<Entities.Profile>()
+
+let update propName newValue guid =
+    // Call DB with Dapper
+    getConnection().Execute("update profiles(rating) values(@rating) where id = @id", dict)
