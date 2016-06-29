@@ -13,6 +13,6 @@ let add (profile: Entities.Profile) =
 
 let getAll () = Database.getConnection().GetAll<Entities.Profile>()
 
-let update propName newValue guid =
-    // Call DB with Dapper
-    getConnection().Execute("update profiles(rating) values(@rating) where id = @id", dict)
+let update (propName: string) (newValue: obj) (guid: Guid) =
+    let q = sprintf "update profiles set %s = @%s where id = @id" propName propName
+    getConnection().Execute(q, dict[propName, newValue; "id", box guid])

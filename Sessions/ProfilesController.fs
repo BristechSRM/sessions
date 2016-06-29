@@ -7,6 +7,7 @@ open System.Web.Http
 
 open ProfilesRepository
 
+// TODO: Belongs in a different namespace, since potentially pertains to all controllers
 type PatchOp = { Path: string; Value: string }
 
 type ProfilesController() = 
@@ -14,7 +15,8 @@ type ProfilesController() =
 
     let patch (id: Guid) (op: PatchOp) =
         if op.Path <> "rating" then raise <| Exception("Can currently only patch rating for profile")
-        ProfilesRepository.update "rating" (Int32.Parse(op.Value)) guid
+        let value = Int32.Parse(op.Value)
+        id |> ProfilesRepository.update "rating" value
 
     // TODO: Belongs in a base class or some other utility module
     member private x.Try successCode op =
