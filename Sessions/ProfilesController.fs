@@ -10,7 +10,7 @@ open ProfilesRepository
 // TODO: Belongs in a different namespace, since potentially pertains to all controllers
 type PatchOp = { Path: string; Value: string }
 
-type ProfilesController() = 
+type ProfilesController() =
     inherit ApiController()
 
     let patch (id: Guid) (op: PatchOp) =
@@ -34,3 +34,6 @@ type ProfilesController() =
 
     member x.Patch(id: Guid, op: PatchOp) =
         x.Try HttpStatusCode.NoContent (fun () -> patch id op)
+
+    member x.Get(id : Guid) =
+        x.Try HttpStatusCode.OK (fun () -> ProfilesRepository.get id)
