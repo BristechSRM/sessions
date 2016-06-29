@@ -4,7 +4,6 @@ open System
 open System.Net
 open System.Net.Http
 open System.Web.Http
-open Controllers.Common
 open ProfilesRepository
 open RestModels
 
@@ -17,13 +16,13 @@ type ProfilesController() =
         id |> ProfilesRepository.update "rating" value
 
     member x.Post(profile: Models.Profile) =
-        Catch x HttpStatusCode.Created (fun () -> profile |> DataTransform.Profiles.toEntity |> add)
+        Catch.respond x HttpStatusCode.Created (fun () -> profile |> DataTransform.Profiles.toEntity |> add)
 
     member x.Get() =
-        Catch x HttpStatusCode.OK (fun () -> ProfilesRepository.getAll() |> Seq.map DataTransform.Profiles.toModel)
+        Catch.respond x HttpStatusCode.OK (fun () -> ProfilesRepository.getAll() |> Seq.map DataTransform.Profiles.toModel)
 
     member x.Get(id : Guid) =
-        Catch x HttpStatusCode.OK (fun () -> ProfilesRepository.get id |> DataTransform.Profiles.toModel)
+        Catch.respond x HttpStatusCode.OK (fun () -> ProfilesRepository.get id |> DataTransform.Profiles.toModel)
 
     member x.Patch(id: Guid, op: PatchOp) =
-        Catch x HttpStatusCode.NoContent (fun () -> patch id op)
+        Catch.respond x HttpStatusCode.NoContent (fun () -> patch id op)
