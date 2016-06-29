@@ -35,5 +35,8 @@ type ProfilesController() =
     member x.Get(id : Guid) =
         x.Try HttpStatusCode.OK (fun () -> ProfilesRepository.get id |> DataTransform.Profiles.toModel)
 
+    member x.Get(id : Guid) =
+        x.Try HttpStatusCode.OK (fun () -> ProfilesRepository.get id)
+
     member x.Patch(id: Guid, op: PatchOp) =
         x.Try HttpStatusCode.NoContent (fun () -> patch id op)
