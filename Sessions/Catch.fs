@@ -9,8 +9,7 @@ let respond (c: ApiController) successCode op =
     try
         c.Request.CreateResponse(successCode, op())
     with
-    | ex ->
-        c.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message)
+    | ex -> c.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message)
 
 
 

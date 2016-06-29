@@ -56,8 +56,9 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Models.fs" />
+    <Compile Include="RestModels.fs" />
     <Compile Include="DataTransform.fs" />
-    <Compile Include="Controllers.Common.fs" />
+    <Compile Include="Catch.fs" />
     <Compile Include="HandlesController.fs" />
     <Compile Include="ProfilesController.fs" />
     <Compile Include="Program.fs" />
