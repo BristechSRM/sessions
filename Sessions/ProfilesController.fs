@@ -37,6 +37,3 @@ type ProfilesController() =
 
     member x.Patch(id: Guid, op: PatchOp) =
         x.Try HttpStatusCode.NoContent (fun () -> patch id op)
-
-    member x.Get(id : Guid) =
-        x.Try HttpStatusCode.OK (fun () -> ProfilesRepository.get id)
