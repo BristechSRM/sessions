@@ -6,9 +6,7 @@ open System.Net.Http
 open System.Web.Http
 open Controllers.Common
 open ProfilesRepository
-
-// TODO: Belongs in a different namespace, since potentially pertains to all controllers
-type PatchOp = { Path: string; Value: string }
+open RestModels
 
 type ProfilesController() =
     inherit ApiController()
