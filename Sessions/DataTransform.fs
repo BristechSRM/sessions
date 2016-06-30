@@ -22,3 +22,8 @@ module Handles =
         { ProfileId = handle.ProfileId
           Identifier = handle.Identifier
           Type = handle.Type }
+
+    let toModel (handle : Entities.Handle) : Models.Handle = 
+        { ProfileId = handle.ProfileId
+          Identifier = handle.Identifier
+          Type = handle.Type }
