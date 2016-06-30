@@ -2,6 +2,12 @@
 
 open System
 
+[<CLIMutable>]
+type Handle = 
+    { ProfileId : Guid 
+      Type : string
+      Identifier : string }
+
 // Why is this necessary? JSON serialisation?
 [<CLIMutable>]
 type Profile = 
