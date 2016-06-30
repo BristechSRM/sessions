@@ -12,5 +12,5 @@ let getByTypeAndIdentifier (htype : string) (identifier : string) =
                                             dict [ "Type", box htype
                                                    "Identifier", box identifier ])
 
-let getByProfileId (profileId : Guid) = 
+let getByProfileId (profileId : Guid) =
     getConnection().Query<Handle> ("select profileId, type, identifier from handles where profileId = @ProfileId", dict [ "ProfileId", box profileId ])
