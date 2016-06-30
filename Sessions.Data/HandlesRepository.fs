@@ -3,10 +3,11 @@
 open Dapper
 open Database
 open System
+open Entities
 
-let add (handle : Entities.Handle) = insert handle |> ignore
+let add (handle : Handle) = insert handle |> ignore
 
-let get (handletype : string) (identifier : string) = 
-    getConnection().Query<Entities.Handle> ("select profileId, type, identifier from handles where type = @Type and identifier = @Identifier", 
-                                            dict [ "Type", box handletype
+let get (htype : string) (identifier : string) = 
+    getConnection().Query<Handle> ("select profileId, type, identifier from handles where type = @Type and identifier = @Identifier", 
+                                            dict [ "Type", box htype
                                                    "Identifier", box identifier ])
