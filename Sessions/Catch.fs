@@ -1,4 +1,4 @@
-﻿module Catch //TODO better name?
+﻿module Catch
 
 open System
 open System.Net
