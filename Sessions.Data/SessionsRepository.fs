@@ -12,3 +12,5 @@ let add (session: Session) =
     guid
 
 let getAll () = getConnection().GetAll<Session>()
+
+let get (sessionId : Guid) = getConnection().Get<Session>(sessionId)
