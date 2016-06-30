@@ -61,6 +61,7 @@
     <Compile Include="Catch.fs" />
     <Compile Include="HandlesController.fs" />
     <Compile Include="ProfilesController.fs" />
+    <Compile Include="SessionsController.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
