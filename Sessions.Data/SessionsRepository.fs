@@ -11,4 +11,4 @@ let add (session: Session) =
     insert {session with Id = guid; Date = Nullable DateTime.UtcNow;} |> ignore
     guid
 
-let getAll () = Database.getConnection().GetAll<Session>()
+let getAll () = getConnection().GetAll<Session>()

@@ -43,3 +43,13 @@ module Session =
             | None -> DateTime.UtcNow
             | Some date -> date
           Date = session.Date |> Option.toNullable}
+
+    let toModel (session : Entities.Session) : Models.Session = 
+        { Id = session.Id
+          Title = session.Title
+          Description = session.Description
+          Status = session.Status
+          SpeakerId = session.SpeakerId
+          AdminId = session.AdminId |> Option.ofNullable
+          DateAdded = session.DateAdded |> Some
+          Date = session.Date |> Option.ofNullable }

@@ -14,3 +14,4 @@ type SessionsController() =
 
     member x.Post(session: Session) = Catch.respond x HttpStatusCode.Created (fun () -> session |> Session.toEntity |> add)
 
+    member x.Get() = Catch.respond x HttpStatusCode.OK (fun () -> getAll() |> Seq.map Session.toModel)
