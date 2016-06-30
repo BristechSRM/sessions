@@ -9,10 +9,11 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Sessions</RootNamespace>
     <AssemblyName>Sessions</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <Name>Sessions</Name>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,6 +56,7 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Logging.fs" />
     <Compile Include="Models.fs" />
     <Compile Include="RestModels.fs" />
     <Compile Include="DataTransform.fs" />
@@ -115,6 +117,11 @@
     </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Web" />
+    <ProjectReference Include="..\Sessions.Data\Sessions.Data.fsproj">
+      <Name>Sessions.Data</Name>
+      <Project>{bac0180b-9015-4978-bcf2-e0d8a23089e6}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <Reference Include="System.Web.Cors">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
       <Private>True</Private>
@@ -135,13 +142,6 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Sessions.Data\Sessions.Data.fsproj">
-      <Name>Sessions.Data</Name>
-      <Project>{bac0180b-9015-4978-bcf2-e0d8a23089e6}</Project>
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -5,6 +5,8 @@ open System
 open System.Configuration
 open System.Threading
 
+open Logging
+
 (*
     Do not run Visual Studio as Administrator!
 
@@ -13,6 +15,8 @@ open System.Threading
 *)
 [<EntryPoint>]
 let main _ =
+    setupLogging()
+
     try
         let baseUrl = ConfigurationManager.AppSettings.Get("BaseUrl")
         if String.IsNullOrEmpty baseUrl then

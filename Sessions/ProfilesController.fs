@@ -6,7 +6,9 @@ open System.Net.Http
 open System.Web.Http
 open ProfilesRepository
 open RestModels
+open Logging
 
+[<LoggingActionFilter>]
 type ProfilesController() =
     inherit ApiController()
 

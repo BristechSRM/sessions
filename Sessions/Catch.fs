@@ -7,9 +7,13 @@ open System.Web.Http
 
 let respond (c: ApiController) successCode op =
     try
+        let result = op()
+        printfn "Action succeeded"
         c.Request.CreateResponse(successCode, op())
     with
-    | ex -> c.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message)
+    | ex ->
+        printfn "Action failed with error: %s" ex.Message
+        c.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message)
 
 
 
