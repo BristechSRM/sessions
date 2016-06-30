@@ -8,7 +8,6 @@ type Handle =
       Type : string
       Identifier : string }
 
-// Why is this necessary? JSON serialisation?
 [<CLIMutable>]
 type Profile = 
     { Id : Guid
