@@ -1,6 +1,5 @@
 ﻿module HandlesRepository
 
-open Dapper
 open Dapper.Contrib.Extensions
 open Database
 open Entities
@@ -14,4 +13,4 @@ let getByTypeAndIdentifier (htype : string) (identifier : string) =
 
 let getByProfileId (profileId : Guid) = selectWhere<Handle> (dict [ "ProfileId", box profileId ])
 
-let getAll () = getConnection().Query<Handle>("select profileId, type, identifier from handles order by type, identifier")
+let getAll () = getConnection().GetAll<Handle>()
