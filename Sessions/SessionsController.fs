@@ -15,7 +15,7 @@ type SessionsController() =
 
     let patch (id: Guid) (op: PatchOp) =
         if op.Path <> "description" then raise <| Exception("Can currently only patch description for session")
-        id |> SessionsRepository.update "description" op.Value
+        update id "description" op.Value
 
     member x.Post(session: Session) = Catch.respond x HttpStatusCode.Created (fun () -> session |> Session.toEntity |> add)
 
