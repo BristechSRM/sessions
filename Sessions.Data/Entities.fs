@@ -17,3 +17,14 @@ type Profile =
       Rating : int
       ImageUrl : string
       Bio : string }
+
+[<Table("sessions")>]
+type Session = 
+    { Id : Guid
+      Title : string
+      Description : string
+      Status : string
+      SpeakerId : Guid
+      AdminId : Nullable<Guid>
+      DateAdded : DateTime
+      Date : Nullable<DateTime> }
