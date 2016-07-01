@@ -26,4 +26,19 @@ let insert entity =
 
     getConnection().Execute(sql, entity)
 
-// Utility method to select list based on FK
+let selectWhere<'Entity> (filters : Collections.Generic.IDictionary<string,obj>)= 
+    let entityType = typeof<'Entity>
+    let tableAtt = entityType.GetCustomAttributes(typedefof<TableAttribute>, false).[0] :?> TableAttribute
+    let table = tableAtt.Name
+
+    let properties = entityType.GetProperties()
+    let columnNames = properties |> Array.map (fun p -> p.Name.ToLowerInvariant())
+
+    let selectSql = "select " + String.Join(", ", columnNames) + " from " + table
+    if filters.Count > 0 then
+        let keysAsParamaters = filters.Keys |> Seq.map (fun key -> key + " = @" + key)
+        let whereSql = "where " + String.Join(" and ", keysAsParamaters)
+        let sql = selectSql + " " + whereSql
+        getConnection().Query<'Entity>(sql,filters)
+    else 
+        raise <| Exception("Where clause requires at least one filter for selectWhere")    
