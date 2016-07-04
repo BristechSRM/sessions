@@ -17,4 +17,8 @@ let get (sessionId : Guid) = getConnection().Get<Session>(sessionId)
 
 let update (propName: string) (newValue: obj) (guid: Guid) = 
     let q = sprintf "update sessions set %s = @%s where id = @id" propName propName
-    getConnection().Execute(q, dict[propName, newValue; "id", box guid])
+    let result = getConnection().Execute(q, dict[propName, newValue; "id", box guid])
+    if result = 0 then
+        raise <| Exception("Record was not updated. Check that the input guid matches a record.")
+    else 
+        result
