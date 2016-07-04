@@ -3,6 +3,9 @@
 open System
 open Dapper.Contrib.Extensions
 
+// Note: CLIMutable attribute seems to be required in some cases, but not all cases. 
+// If you get an error asking for a certain constructor, or a wierd error, try adding the attribute
+
 [<Table("handles")>]
 type Handle = 
     { ProfileId : Guid 
@@ -18,6 +21,7 @@ type Profile =
       ImageUrl : string
       Bio : string }
 
+[<CLIMutable>]
 [<Table("sessions")>]
 type Session = 
     { Id : Guid

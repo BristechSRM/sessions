@@ -1,7 +1,8 @@
 ﻿module Models
 
 open System
-open Newtonsoft.Json 
+
+// Note: ClIMutable attribute should be on all records for models. Newtonsoft.Json needs it. 
 
 [<CLIMutable>]
 type Handle = 
