@@ -14,9 +14,9 @@ type ProfilesController() =
     let patch (id: Guid) (op: PatchOp) =
         match op.Path with 
         | "rating" -> 
-            update id "rating" <| Int32.Parse(op.Value)
+            updateField id "rating" <| Int32.Parse(op.Value)
         | "bio" -> 
-            update id "bio" op.Value
+            updateField id "bio" op.Value
         | _ ->  raise <| Exception("Can currently only patch rating or bio for profile")   
         
     member x.Post(profile: Models.Profile) = Catch.respond x HttpStatusCode.Created (fun () -> profile |> Profiles.toEntity |> add)
