@@ -43,3 +43,21 @@ let selectWhere<'Entity> (filters : Collections.Generic.IDictionary<string,obj>)
         getConnection().Query<'Entity>(sql,filters)
     else 
         raise <| Exception("Where clause requires at least one filter for selectWhere")    
+
+let private getTableName (entityType : Type) = 
+    let tableAtt = entityType.GetCustomAttributes(typedefof<TableAttribute>, false).[0] :?> TableAttribute
+    tableAtt.Name
+
+// Warning: This is not type safe. The value of newValue may be coerced by the database into the column type. 
+// E.g. Anything can be inserted into a string column. A float will be truncated and inserted into an int column. 
+let updateField<'Entity> (guid : Guid) (propName : string) newValue = 
+    let entityType = typeof<'Entity>
+    let tableName = getTableName entityType
+
+    let updateSql = sprintf "update %s set %s = @%s where id = @id" tableName propName propName
+    let result = getConnection().Execute(updateSql, dict [propName, box newValue
+                                                          "id", box guid])
+    if result = 0 then
+        raise <| Exception(sprintf "%s was not updated. Check that the input guid matches a %s." entityType.Name entityType.Name)
+    else 
+        result
