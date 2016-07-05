@@ -2,7 +2,7 @@
 
 open System
 
-module Profiles = 
+module Profile = 
     let toEntity (profile : Models.Profile) : Entities.Profile = 
         { Id = profile.Id
           Forename = profile.Forename
@@ -19,7 +19,7 @@ module Profiles =
           ImageUrl = profile.ImageUrl
           Bio = profile.Bio }
 
-module Handles = 
+module Handle = 
     let toEntity (handle : Models.Handle) : Entities.Handle = 
         { ProfileId = handle.ProfileId
           Identifier = handle.Identifier

@@ -16,7 +16,7 @@ let getAll () = getConnection().GetAll<Profile>()
 
 let get (profileId : Guid) = getConnection().Get<Profile>(profileId)
 
-let update (guid: Guid) (propName: string) (newValue: obj)  =
+let updateField (guid: Guid) (propName: string) (newValue: obj)  =
     let q = sprintf "update profiles set %s = @%s where id = @id" propName propName
     let result = getConnection().Execute(q, dict[propName, newValue; "id", box guid])
     if result = 0 then

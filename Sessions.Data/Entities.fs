@@ -6,9 +6,10 @@ open Dapper.Contrib.Extensions
 // Note: CLIMutable attribute seems to be required in some cases, but not all cases. 
 // If you get an error asking for a certain constructor, or a wierd error, try adding the attribute
 
+[<CLIMutable>]
 [<Table("handles")>]
 type Handle = 
-    { ProfileId : Guid 
+    { [<Key>] ProfileId : Guid 
       Type : string
       Identifier : string }
 
