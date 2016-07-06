@@ -11,11 +11,11 @@ open DataTransform
 type HandlesController() =
     inherit ApiController()
 
-    member x.Post(handle : Models.Handle) = Catch.respond x HttpStatusCode.Created (fun () -> handle |> Handle.toEntity |> add)
+    member x.Post(handle : Models.Handle) = (fun () -> handle |> Handle.toEntity |> add) |> Catch.respond x HttpStatusCode.Created 
 
     member x.Get(htype : string, identifier: string) =
-        Catch.respond x HttpStatusCode.OK (fun () -> getByTypeAndIdentifier htype identifier |> Seq.head |> Handle.toModel)
+        (fun () -> getByTypeAndIdentifier htype identifier |> Seq.head |> Handle.toModel) |> Catch.respond x HttpStatusCode.OK 
 
-    member x.Get(profileId : Guid) = Catch.respond x HttpStatusCode.OK (fun () -> getByProfileId profileId |> Seq.map Handle.toModel)
+    member x.Get(profileId : Guid) = (fun () -> getByProfileId profileId |> Seq.map Handle.toModel) |> Catch.respond x HttpStatusCode.OK 
 
-    member x.Get() = Catch.respond x HttpStatusCode.OK (fun () -> getAll() |> Seq.map Handle.toModel)
+    member x.Get() = (fun () -> getAll() |> Seq.map Handle.toModel) |> Catch.respond x HttpStatusCode.OK 

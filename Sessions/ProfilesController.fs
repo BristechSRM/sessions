@@ -19,10 +19,10 @@ type ProfilesController() =
             updateField id "bio" op.Value
         | _ ->  raise <| Exception("Can currently only patch rating or bio for profile")   
         
-    member x.Post(profile: Models.Profile) = Catch.respond x HttpStatusCode.Created (fun () -> profile |> Profile.toEntity |> add)
+    member x.Post(profile: Models.Profile) = (fun () -> profile |> Profile.toEntity |> add) |> Catch.respond x HttpStatusCode.Created 
 
-    member x.Get() = Catch.respond x HttpStatusCode.OK (fun () -> getAll() |> Seq.map Profile.toModel)
+    member x.Get() = (fun () -> getAll() |> Seq.map Profile.toModel) |> Catch.respond x HttpStatusCode.OK 
 
-    member x.Get(id : Guid) = Catch.respond x HttpStatusCode.OK (fun () -> get id |> Profile.toModel)
+    member x.Get(id : Guid) = (fun () -> get id |> Profile.toModel) |> Catch.respond x HttpStatusCode.OK 
 
-    member x.Patch(id: Guid, op: PatchOp) = Catch.respond x HttpStatusCode.NoContent (fun () -> patch id op)
+    member x.Patch(id: Guid, op: PatchOp) = (fun () -> patch id op) |> Catch.respond x HttpStatusCode.NoContent 
