@@ -17,10 +17,10 @@ type SessionsController() =
         if op.Path <> "description" then raise <| Exception("Can currently only patch description for session")
         updateField id "description" op.Value
 
-    member x.Post(session: Session) = Catch.respond x HttpStatusCode.Created (fun () -> session |> Session.toEntity |> add)
+    member x.Post(session: Session) = (fun () -> session |> Session.toEntity |> add) |> Catch.respond x HttpStatusCode.Created 
 
-    member x.Get() = Catch.respond x HttpStatusCode.OK (fun () -> getAll() |> Seq.map Session.toModel)
+    member x.Get() = (fun () -> getAll() |> Seq.map Session.toModel) |> Catch.respond x HttpStatusCode.OK 
 
-    member x.Get(id : Guid) = Catch.respond x HttpStatusCode.OK (fun () -> get id |> Session.toModel)
+    member x.Get(id : Guid) = (fun () -> get id |> Session.toModel) |> Catch.respond x HttpStatusCode.OK 
 
-    member x.Patch(id: Guid, op: PatchOp) = Catch.respond x HttpStatusCode.NoContent (fun () -> patch id op)
+    member x.Patch(id: Guid, op: PatchOp) = (fun () -> patch id op) |> Catch.respond x HttpStatusCode.NoContent 
