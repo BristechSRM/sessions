@@ -19,6 +19,7 @@ let main _ =
             failwith "Missing configuration value: 'BaseUrl'"
 
         use server = WebApp.Start<Bristech.Srm.HttpConfig.Startup>(baseUrl)
+        printfn "Listening on %s" baseUrl
 
         let waitIndefinitelyWithToken = 
             let cancelSource = new CancellationTokenSource()
