@@ -13,10 +13,8 @@ type ProfilesController() =
 
     let patch (id: Guid) (op: PatchOp) =
         match op.Path with 
-        | "rating" -> 
-            updateField id "rating" <| Int32.Parse(op.Value)
-        | "bio" -> 
-            updateField id "bio" op.Value
+        | "rating" -> updateField id op.Path <| Int32.Parse(op.Value)
+        | "bio" | "forename" | "surname" -> updateField id op.Path op.Value
         | _ ->  raise <| Exception(sprintf "Error: Patch currently does not accept: %s for profile" op.Path)   
         
     member x.Post(profile: Models.Profile) = (fun () -> profile |> Profile.toEntity |> add) |> Catch.respond x HttpStatusCode.Created 
