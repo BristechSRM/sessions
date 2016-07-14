@@ -15,10 +15,7 @@ type SessionsController() =
 
     let patch (id: Guid) (op: PatchOp) =
         match op.Path with
-        | "description" -> 
-            updateField id "description" op.Value
-        | "title" -> 
-            updateField id "title" op.Value
+        | "description" | "title" -> updateField id op.Path op.Value
         | _ ->  raise <| Exception(sprintf "Error: Patch currently does not accept: %s for session" op.Path) 
         
 
