@@ -14,8 +14,10 @@ type SessionsController() =
     inherit ApiController()
 
     let patch (id: Guid) (op: PatchOp) =
-        if op.Path <> "description" then raise <| Exception("Can currently only patch description for session")
-        updateField id "description" op.Value
+        match op.Path with
+        | "description" | "title" -> updateField id op.Path op.Value
+        | _ ->  raise <| Exception(sprintf "Error: Patch currently does not accept: %s for session" op.Path) 
+        
 
     member x.Post(session: Session) = (fun () -> session |> Session.toEntity |> add) |> Catch.respond x HttpStatusCode.Created 
 

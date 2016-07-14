@@ -17,7 +17,7 @@ type ProfilesController() =
             updateField id "rating" <| Int32.Parse(op.Value)
         | "bio" -> 
             updateField id "bio" op.Value
-        | _ ->  raise <| Exception("Can currently only patch rating or bio for profile")   
+        | _ ->  raise <| Exception(sprintf "Error: Patch currently does not accept: %s for profile" op.Path)   
         
     member x.Post(profile: Models.Profile) = (fun () -> profile |> Profile.toEntity |> add) |> Catch.respond x HttpStatusCode.Created 
 
