@@ -6,7 +6,8 @@ open System
 
 [<CLIMutable>]
 type Handle = 
-    { ProfileId : Guid 
+    { Id: int
+      ProfileId : Guid 
       Type : string
       Identifier : string }
 

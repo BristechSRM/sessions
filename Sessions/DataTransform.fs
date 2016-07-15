@@ -21,12 +21,14 @@ module Profile =
 
 module Handle = 
     let toEntity (handle : Models.Handle) : Entities.Handle = 
-        { ProfileId = handle.ProfileId
+        { Id = handle.Id
+          ProfileId = handle.ProfileId
           Identifier = handle.Identifier
           Type = handle.Type }
 
     let toModel (handle : Entities.Handle) : Models.Handle = 
-        { ProfileId = handle.ProfileId
+        { Id = handle.Id
+          ProfileId = handle.ProfileId
           Identifier = handle.Identifier
           Type = handle.Type }
 

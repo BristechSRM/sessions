@@ -19,3 +19,5 @@ type HandlesController() =
     member x.Get(profileId : Guid) = (fun () -> getByProfileId profileId |> Seq.map Handle.toModel) |> Catch.respond x HttpStatusCode.OK 
 
     member x.Get() = (fun () -> getAll() |> Seq.map Handle.toModel) |> Catch.respond x HttpStatusCode.OK 
+
+    member x.Get(id: int) = (fun () -> get id |> Handle.toModel) |> Catch.respond x HttpStatusCode.OK
