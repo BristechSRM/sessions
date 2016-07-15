@@ -17,3 +17,5 @@ let getByProfileId (profileId : Guid) = selectWhere<Handle> (dict [ "ProfileId",
 let getAll () = getConnection().GetAll<Handle>()
 
 let get (handleId : int) = getConnection().Get<Handle>(handleId)
+
+let updateField (handleId: int) (propName: string) newValue = Database.updateField<Handle> handleId propName newValue 
