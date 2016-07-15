@@ -9,7 +9,8 @@ open Dapper.Contrib.Extensions
 [<CLIMutable>]
 [<Table("handles")>]
 type Handle = 
-    { [<Key>] ProfileId : Guid 
+    { Id : int
+      ProfileId : Guid 
       Type : string
       Identifier : string }
 

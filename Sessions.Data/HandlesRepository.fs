@@ -5,7 +5,8 @@ open Database
 open Entities
 open System
 
-let add (handle : Handle) = insert handle |> ignore
+let add (handle : Handle) = 
+    insert { handle with Id = 0 } |> ignore
 
 let getByTypeAndIdentifier (htype : string) (identifier : string) = 
     selectWhere<Handle> (dict [ "Type", box htype
