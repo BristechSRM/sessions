@@ -56,11 +56,11 @@ let updateFieldWhere<'Entity> (propName : string) newValue (filters : Collection
     let entityType = typeof<'Entity>
     let tableName = getTableName entityType
 
-    let updateSql = sprintf "update %s set %s = @%s" tableName propName propName
+    let updateSql = sprintf "update %s set %s = @%s " tableName propName propName
 
-    let keysAsParamaters = filters.Keys |> Seq.map (fun key -> key + " = @" + key)
-    let whereSql = "where " + String.Join(" and ", keysAsParamaters)
-    let sql = updateSql + " " + whereSql
+    let keysAsParamaters = filters.Keys |> Seq.map (fun key -> sprintf "%s = @%s " key key)
+    let whereSql = "where " + String.Join("and ", keysAsParamaters)
+    let sql = updateSql + whereSql
 
     let parameters = ResizeArray(filters)
     parameters.Add(new Collections.Generic.KeyValuePair<string,obj>(propName, box newValue))
@@ -72,4 +72,4 @@ let updateFieldWhere<'Entity> (propName : string) newValue (filters : Collection
         result
 
 let updateField<'Entity> recordId (propName : string) newValue = 
-    updateFieldWhere<'Entity> propName newValue (dict [ "id", box recordId ])
+    updateFieldWhere<'Entity> propName newValue (dict [ "id", box recordId])
