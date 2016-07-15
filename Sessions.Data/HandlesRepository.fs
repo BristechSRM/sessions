@@ -15,3 +15,5 @@ let getByTypeAndIdentifier (htype : string) (identifier : string) =
 let getByProfileId (profileId : Guid) = selectWhere<Handle> (dict [ "ProfileId", box profileId ])
 
 let getAll () = getConnection().GetAll<Handle>()
+
+let get (handleId : int) = getConnection().Get<Handle>(handleId)
