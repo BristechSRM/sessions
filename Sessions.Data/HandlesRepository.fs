@@ -6,7 +6,7 @@ open Entities
 open System
 
 let add (handle : Handle) = 
-    insert { handle with Id = 0 } |> ignore
+    insert { handle with Id = 0 }
 
 let getByTypeAndIdentifier (htype : string) (identifier : string) = 
     selectWhere<Handle> (dict [ "Type", box htype
