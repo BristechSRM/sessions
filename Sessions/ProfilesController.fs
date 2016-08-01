@@ -23,4 +23,6 @@ type ProfilesController() =
 
     member x.Get(id : Guid) = (fun () -> get id |> Profile.toModel) |> Catch.respond x HttpStatusCode.OK 
 
+    member x.Get(isAdmin : bool) = (fun () -> getByIsAdmin isAdmin |> Seq.map Profile.toModel) |> Catch.respond x HttpStatusCode.OK
+
     member x.Patch(id: Guid, op: PatchOp) = (fun () -> patch id op) |> Catch.respond x HttpStatusCode.NoContent 
