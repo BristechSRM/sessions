@@ -9,7 +9,8 @@ module Profile =
           Surname = profile.Surname
           Rating = profile.Rating
           ImageUrl = profile.ImageUrl
-          Bio = profile.Bio }
+          Bio = profile.Bio 
+          IsAdmin = profile.IsAdmin }
     
     let toModel (profile : Entities.Profile) : Models.Profile = 
         { Id = profile.Id
@@ -17,7 +18,8 @@ module Profile =
           Surname = profile.Surname
           Rating = profile.Rating
           ImageUrl = profile.ImageUrl
-          Bio = profile.Bio }
+          Bio = profile.Bio 
+          IsAdmin = profile.IsAdmin }
 
 module Handle = 
     let toEntity (handle : Models.Handle) : Entities.Handle = 

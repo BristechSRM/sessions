@@ -18,7 +18,8 @@ type Profile =
       Surname : string
       Rating : int
       ImageUrl : string
-      Bio : string }
+      Bio : string 
+      IsAdmin : bool }
 
 [<CLIMutable>]
 type Session =
