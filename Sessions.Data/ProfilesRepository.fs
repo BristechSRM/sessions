@@ -15,4 +15,6 @@ let getAll() = getConnection().GetAll<Profile>()
 
 let get (profileId : Guid) = getConnection().Get<Profile> (profileId)
 
+let getByIsAdmin (isAdmin : bool) = selectWhere<Profile> (dict [ "IsAdmin", box isAdmin ])
+
 let updateField (guid : Guid) (propName : string) newValue = Database.updateField<Profile> guid propName newValue
