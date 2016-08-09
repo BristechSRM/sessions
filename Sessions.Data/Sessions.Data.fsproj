@@ -54,6 +54,7 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Entities.fs" />
     <Compile Include="Database.fs" />
+    <Compile Include="EventsRepository.fs" />
     <Compile Include="HandlesRepository.fs" />
     <Compile Include="ProfilesRepository.fs" />
     <Compile Include="SessionsRepository.fs" />

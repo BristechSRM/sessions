@@ -35,3 +35,10 @@ type Session =
       AdminId : Nullable<Guid>
       DateAdded : DateTime
       Date : Nullable<DateTime> }
+
+[<CLIMutable>]
+[<Table("events")>]
+type Event =
+    { Id : Guid
+      Date : Nullable<DateTime>
+      Name : string }
