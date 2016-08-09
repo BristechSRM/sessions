@@ -4,6 +4,8 @@ open Microsoft.Owin.Hosting
 open System
 open System.Configuration
 open System.Threading
+open Serilog
+open Startup
 
 (*
     Do not run Visual Studio as Administrator!
@@ -18,12 +20,14 @@ let main _ =
         if String.IsNullOrEmpty baseUrl then
             failwith "Missing configuration value: 'BaseUrl'"
 
-        use server = WebApp.Start<Bristech.Srm.HttpConfig.Startup>(baseUrl)
-        printfn "Listening on %s" baseUrl
+        use server = WebApp.Start<Startup>(baseUrl)
+        Log.Information ("Listening on {0}", baseUrl)
 
         let waitIndefinitelyWithToken = 
             let cancelSource = new CancellationTokenSource()
             cancelSource.Token.WaitHandle.WaitOne() |> ignore
         0
     with
-    | ex -> 1
+    | ex -> 
+      Log.Fatal ("Exception: {0}", ex)
+      1
