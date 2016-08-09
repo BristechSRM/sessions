@@ -63,14 +63,15 @@
     <Compile Include="HandlesController.fs" />
     <Compile Include="ProfilesController.fs" />
     <Compile Include="SessionsController.fs" />
+    <Compile Include="Logging.fs" />
+    <Compile Include="Startup.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Bristech.Srm.HttpConfig">
-      <HintPath>..\packages\Bristech.Srm.HttpConfig.0.1.4\lib\net45\Bristech.Srm.HttpConfig.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Bristech.Srm.Common">
+      <HintPath>..\packages\Bristech.Srm.Common.0.1.0\lib\net45\Bristech.Srm.Common.dll</HintPath>
     </Reference>
     <Reference Include="FSharp.Core">
       <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
