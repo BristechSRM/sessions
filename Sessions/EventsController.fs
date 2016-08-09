@@ -15,3 +15,7 @@ type EventsController() =
   member this.Get() =
     let events = getAll()
     this.Request.CreateResponse(HttpStatusCode.OK, events |> Seq.map Event.toModel)
+
+  member this.Post(event: Event) =
+    let guid = event |> Event.toEntity |> add
+    this.Request.CreateResponse(HttpStatusCode.Created, guid)

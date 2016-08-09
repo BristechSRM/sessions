@@ -59,6 +59,11 @@ module Session =
           Date = session.Date |> Option.ofNullable }
 
 module Event =
+    let toEntity(event: Models.Event) : Entities.Event =
+      { Id = event.Id
+        Date = event.Date |> Option.toNullable
+        Name = event.Name }
+
     let toModel(event: Entities.Event) : Models.Event =
       { Id = event.Id
         Date = event.Date |> Option.ofNullable
