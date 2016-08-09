@@ -60,6 +60,7 @@
     <Compile Include="RestModels.fs" />
     <Compile Include="DataTransform.fs" />
     <Compile Include="Catch.fs" />
+    <Compile Include="EventsController.fs" />
     <Compile Include="HandlesController.fs" />
     <Compile Include="ProfilesController.fs" />
     <Compile Include="SessionsController.fs" />
