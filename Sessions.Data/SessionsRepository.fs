@@ -15,7 +15,9 @@ let getAll() = getConnection().GetAll<Session>()
 
 let get (sessionId : Guid) = getConnection().Get<Session> (sessionId)
 
+let getSessionsByEventId (eventId : Guid) = selectWhere<Session> (dict [ "EventId", box eventId ])
+
 //TODO could improve performance by selecting only for id. 
-let getIdsByEventId (eventId : Guid) = selectWhere<Session> (dict [ "EventId", box eventId ]) |> Seq.map (fun x -> x.Id)
+let getIdsByEventId (eventId : Guid) = eventId |> getSessionsByEventId |> Seq.map (fun x -> x.Id)
 
 let updateField (guid : Guid) (propName : string) newValue = Database.updateField<Session> guid propName newValue
