@@ -27,9 +27,10 @@ type Session =
       Title : string
       Description : string
       Status : string
-      Date : DateTime option
+      Date : DateTime option // TODO: Remove when event id connection is complete
       SpeakerId : Guid
       AdminId : Guid option
+      EventId : Guid option
       DateAdded : DateTime option}
 
 [<CLIMutable>]

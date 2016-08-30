@@ -42,6 +42,7 @@ module Session =
           Status = session.Status
           SpeakerId = session.SpeakerId
           AdminId = session.AdminId |> Option.toNullable
+          EventId = session.EventId |> Option.toNullable
           DateAdded = 
             match session.DateAdded with
             | None -> DateTime.UtcNow
@@ -55,6 +56,7 @@ module Session =
           Status = session.Status
           SpeakerId = session.SpeakerId
           AdminId = session.AdminId |> Option.ofNullable
+          EventId = session.EventId |> Option.ofNullable
           DateAdded = session.DateAdded |> Some
           Date = session.Date |> Option.ofNullable }
 
