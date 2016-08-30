@@ -18,7 +18,7 @@ type SessionsController() =
         | "description" | "title" -> updateField id op.Path op.Value
         | "eventid" -> 
             match Guid.TryParse op.Value with
-            | true, guid -> updateField id op.Path <| Nullable guid
+            | true, guid -> updateField id op.Path guid
             | false, _ -> raise <| Exception("Error: patch value could not be parsed as a guid. EventId must be a guid")                
         | _ ->  raise <| Exception(sprintf "Error: Patch currently does not accept: %s for session" op.Path)         
 
