@@ -28,4 +28,8 @@ type SessionsController() =
 
     member x.Get(id : Guid) = (fun () -> get id |> Session.toModel) |> Catch.respond x HttpStatusCode.OK 
 
+    [<Route("sessions/ids")>]
+    member x.GetSessionIdsByEventId([<FromUri>] eventId : Guid) = 
+        (fun () -> getIdsByEventId eventId) |> Catch.respond x HttpStatusCode.OK 
+
     member x.Patch(id: Guid, op: PatchOp) = (fun () -> patch id op) |> Catch.respond x HttpStatusCode.NoContent 
