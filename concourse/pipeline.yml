@@ -40,8 +40,6 @@ resources:
   source:
     serviceName: sessions
     executableName: Sessions
-    nodeName: {{sessionsNode}}
-    portNumber: 8080
     repository: bristechsrm/sessions
-    swarmMasterIp: {{swarmMasterIp}}
-    network: bridge
+    swarmMaster: {{swarmMaster}}
+    network: srm-swarm
