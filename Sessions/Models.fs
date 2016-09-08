@@ -31,10 +31,11 @@ type Session =
       SpeakerId : Guid
       AdminId : Guid option
       EventId : Guid option
-      DateAdded : DateTime option}
+      DateAdded : DateTime option }
 
 [<CLIMutable>]
 type Event = 
     { Id : Guid
       Date : DateTime option
-      Name : string }
+      Name : string 
+      PublishedDate : DateTime option }

@@ -42,4 +42,5 @@ type Session =
 type Event =
     { Id : Guid
       Date : Nullable<DateTime>
-      Name : string }
+      Name : string 
+      PublishedDate : Nullable<DateTime> }
