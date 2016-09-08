@@ -47,7 +47,7 @@ module Session =
             match session.DateAdded with
             | None -> DateTime.UtcNow
             | Some date -> date
-          Date = session.Date |> Option.toNullable}
+          Date = session.Date |> Option.toNullable }
 
     let toModel (session : Entities.Session) : Models.Session = 
         { Id = session.Id
@@ -64,9 +64,11 @@ module Event =
     let toEntity(event: Models.Event) : Entities.Event =
       { Id = event.Id
         Date = event.Date |> Option.toNullable
-        Name = event.Name }
+        Name = event.Name 
+        PublishedDate = event.PublishedDate |> Option.toNullable }
 
     let toModel(event: Entities.Event) : Models.Event =
       { Id = event.Id
         Date = event.Date |> Option.ofNullable
-        Name = event.Name }
+        Name = event.Name 
+        PublishedDate = event.PublishedDate |> Option.ofNullable }
