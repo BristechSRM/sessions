@@ -30,10 +30,10 @@ type SessionsController() =
 
     [<Route("sessions/ids")>]
     [<HttpGet>]
-    member x.GetSessionIdsByEventId([<FromUri>] eventId : Guid) = 
+    member x.GetSessionIdsByEventId(eventId : Guid) = 
         (fun () -> getIdsByEventId eventId) |> Catch.respond x HttpStatusCode.OK 
 
     [<HttpGet>]
-    member x.GetByEventId( [<FromUri>] eventId : Guid) = (fun () -> getSessionsByEventId eventId) |> Catch.respond x HttpStatusCode.OK
+    member x.GetByEventId(eventId : Guid) = (fun () -> getSessionsByEventId eventId) |> Catch.respond x HttpStatusCode.OK
 
     member x.Patch(id: Guid, op: PatchOp) = (fun () -> patch id op) |> Catch.respond x HttpStatusCode.NoContent 
