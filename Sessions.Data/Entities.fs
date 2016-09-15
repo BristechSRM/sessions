@@ -44,3 +44,12 @@ type Event =
       Date : Nullable<DateTime>
       Name : string 
       PublishedDate : Nullable<DateTime> }
+
+[<CLIMutable>]
+[<Table("meetupEvents")>]
+type MeetupEvent =
+    { Id : Guid
+      EventId : Guid
+      MeetupId : string 
+      PublishedDate : Nullable<DateTime>
+      MeetupUrl : string }

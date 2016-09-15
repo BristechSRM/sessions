@@ -72,3 +72,18 @@ module Event =
         Date = event.Date |> Option.ofNullable
         Name = event.Name 
         PublishedDate = event.PublishedDate |> Option.ofNullable }
+
+module MeetupEvent =
+    let toEntity(me: Models.MeetupEvent) : Entities.MeetupEvent =
+      { Id = me.Id 
+        EventId = me.EventId
+        MeetupId = me.MeetupId
+        PublishedDate = me.PublishedDate |> Option.toNullable
+        MeetupUrl = me.MeetupUrl }
+
+    let toModel(me: Entities.MeetupEvent) : Models.MeetupEvent =
+      { Id = me.Id 
+        EventId = me.EventId
+        MeetupId = me.MeetupId
+        PublishedDate = me.PublishedDate |> Option.ofNullable
+        MeetupUrl = me.MeetupUrl }

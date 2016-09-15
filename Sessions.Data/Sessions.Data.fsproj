@@ -58,6 +58,7 @@
     <Compile Include="HandlesRepository.fs" />
     <Compile Include="ProfilesRepository.fs" />
     <Compile Include="SessionsRepository.fs" />
+    <Compile Include="MeetupEventsRepository.fs" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
