@@ -39,3 +39,11 @@ type Event =
       Date : DateTime option
       Name : string 
       PublishedDate : DateTime option }
+
+[<CLIMutable>]
+type MeetupEvent = 
+    { Id : Guid
+      EventId : Guid
+      MeetupId : string
+      PublishedDate : DateTime option
+      MeetupUrl : string }

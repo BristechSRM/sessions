@@ -64,6 +64,7 @@
     <Compile Include="HandlesController.fs" />
     <Compile Include="ProfilesController.fs" />
     <Compile Include="SessionsController.fs" />
+    <Compile Include="MeetupEventsController.fs" />
     <Compile Include="LogHttpMiddleware.fs" />
     <Compile Include="LogExceptionHandler.fs" />
     <Compile Include="Logging.fs" />
@@ -152,7 +153,7 @@
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
