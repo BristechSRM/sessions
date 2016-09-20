@@ -34,16 +34,14 @@ type Session =
       SpeakerId : Guid
       AdminId : Nullable<Guid>
       EventId : Nullable<Guid>
-      DateAdded : DateTime
-      Date : Nullable<DateTime> }
+      DateAdded : DateTime }
 
 [<CLIMutable>]
 [<Table("events")>]
 type Event =
     { Id : Guid
       Date : Nullable<DateTime>
-      Name : string 
-      PublishedDate : Nullable<DateTime> }
+      Name : string }
 
 [<CLIMutable>]
 [<Table("meetupEvents")>]

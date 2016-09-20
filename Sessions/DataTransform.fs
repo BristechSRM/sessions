@@ -46,8 +46,7 @@ module Session =
           DateAdded = 
             match session.DateAdded with
             | None -> DateTime.UtcNow
-            | Some date -> date
-          Date = session.Date |> Option.toNullable }
+            | Some date -> date }
 
     let toModel (session : Entities.Session) : Models.Session = 
         { Id = session.Id
@@ -57,31 +56,28 @@ module Session =
           SpeakerId = session.SpeakerId
           AdminId = session.AdminId |> Option.ofNullable
           EventId = session.EventId |> Option.ofNullable
-          DateAdded = session.DateAdded |> Some
-          Date = session.Date |> Option.ofNullable }
+          DateAdded = session.DateAdded |> Some }
 
 module Event =
-    let toEntity(event: Models.Event) : Entities.Event =
+    let toEntity (event: Models.Event) : Entities.Event =
       { Id = event.Id
         Date = event.Date |> Option.toNullable
-        Name = event.Name 
-        PublishedDate = event.PublishedDate |> Option.toNullable }
+        Name = event.Name }
 
-    let toModel(event: Entities.Event) : Models.Event =
+    let toModel (event: Entities.Event) : Models.Event =
       { Id = event.Id
         Date = event.Date |> Option.ofNullable
-        Name = event.Name 
-        PublishedDate = event.PublishedDate |> Option.ofNullable }
+        Name = event.Name }
 
 module MeetupEvent =
-    let toEntity(me: Models.MeetupEvent) : Entities.MeetupEvent =
+    let toEntity (me: Models.MeetupEvent) : Entities.MeetupEvent =
       { Id = me.Id 
         EventId = me.EventId
         MeetupId = me.MeetupId
         PublishedDate = me.PublishedDate |> Option.toNullable
         MeetupUrl = me.MeetupUrl }
 
-    let toModel(me: Entities.MeetupEvent) : Models.MeetupEvent =
+    let toModel (me: Entities.MeetupEvent) : Models.MeetupEvent =
       { Id = me.Id 
         EventId = me.EventId
         MeetupId = me.MeetupId
