@@ -36,7 +36,8 @@ type Session =
 type Event = 
     { Id : Guid
       Date : DateTime option
-      Name : string }
+      Name : string 
+      MeetupEventId : Guid option }
 
 [<CLIMutable>]
 type MeetupEvent = 

@@ -62,12 +62,14 @@ module Event =
     let toEntity (event: Models.Event) : Entities.Event =
       { Id = event.Id
         Date = event.Date |> Option.toNullable
-        Name = event.Name }
+        Name = event.Name 
+        MeetupEventId = event.MeetupEventId |> Option.toNullable }
 
     let toModel (event: Entities.Event) : Models.Event =
       { Id = event.Id
         Date = event.Date |> Option.ofNullable
-        Name = event.Name }
+        Name = event.Name 
+        MeetupEventId = event.MeetupEventId |> Option.ofNullable}
 
 module MeetupEvent =
     let toEntity (me: Models.MeetupEvent) : Entities.MeetupEvent =
