@@ -27,7 +27,6 @@ type Session =
       Title : string
       Description : string
       Status : string
-      Date : DateTime option // TODO: Remove when event id connection is complete
       SpeakerId : Guid
       AdminId : Guid option
       EventId : Guid option
@@ -37,8 +36,7 @@ type Session =
 type Event = 
     { Id : Guid
       Date : DateTime option
-      Name : string 
-      PublishedDate : DateTime option }
+      Name : string }
 
 [<CLIMutable>]
 type MeetupEvent = 
