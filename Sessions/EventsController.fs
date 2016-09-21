@@ -12,8 +12,7 @@ type EventsController() =
     inherit ApiController()
     
     member this.Get() = 
-        let events = getAll()
-        this.Request.CreateResponse(HttpStatusCode.OK, events |> Seq.map Event.toModel)
+        this.Request.CreateResponse(HttpStatusCode.OK, getAll() |> Seq.map Event.toModel)
     
     member this.Get(id : Guid) = 
         let event = get id

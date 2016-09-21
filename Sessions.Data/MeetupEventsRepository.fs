@@ -5,6 +5,8 @@ open Database
 open Entities
 open System
 
+let getAll () = getConnection().GetAll<MeetupEvent>()
+
 let get (id : Guid) = getConnection().Get<MeetupEvent>(id)
 
 let add (me: MeetupEvent) =
