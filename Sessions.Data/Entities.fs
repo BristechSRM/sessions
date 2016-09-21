@@ -41,7 +41,8 @@ type Session =
 type Event =
     { Id : Guid
       Date : Nullable<DateTime>
-      Name : string }
+      Name : string 
+      MeetupEventId : Nullable<Guid> }
 
 [<CLIMutable>]
 [<Table("meetupEvents")>]

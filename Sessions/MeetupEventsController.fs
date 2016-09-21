@@ -19,4 +19,6 @@ type MeetupEventsController() =
     
     member this.Post(me : MeetupEvent) = 
         let guid = me |> MeetupEvent.toEntity |> add
+        EventsRepository.updateField me.EventId "meetupEventId" guid |> ignore
+        //Update event with MeetupId as well
         this.Request.CreateResponse(HttpStatusCode.Created, guid)
