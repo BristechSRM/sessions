@@ -10,6 +10,9 @@ open System.Web.Http
 
 type MeetupEventsController() = 
     inherit ApiController()
+
+    member this.Get() = 
+        this.Request.CreateResponse(HttpStatusCode.OK, getAll() |> Seq.map MeetupEvent.toModel)
     
     member this.Get(id : Guid) = 
         let me = get id
