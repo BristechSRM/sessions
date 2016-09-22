@@ -22,6 +22,13 @@ type MeetupEventsController() =
     
     member this.Post(me : MeetupEvent) = 
         let guid = me |> MeetupEvent.toEntity |> add
+        //Update event with meetupEventId as well
         EventsRepository.updateField me.EventId "meetupEventId" guid |> ignore
-        //Update event with MeetupId as well
         this.Request.CreateResponse(HttpStatusCode.Created, guid)
+
+    member this.Delete(id : Guid) = 
+        let meetupEvent = get id
+        delete meetupEvent.Id |> ignore
+        //Update event with removing meetupEventId as well
+        EventsRepository.updateField meetupEvent.EventId "meetupEventId" None |> ignore
+        this.Request.CreateResponse(HttpStatusCode.NoContent)

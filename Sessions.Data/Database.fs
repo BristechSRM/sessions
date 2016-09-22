@@ -13,31 +13,34 @@ let getConnection =
     let connectionString = ConfigurationManager.ConnectionStrings.Item("DefaultConnection").ConnectionString
     fun () -> new MySqlConnection(connectionString)
 
+let private getTableName (entityType : Type) = 
+    let tableAtt = entityType.GetCustomAttributes(typedefof<TableAttribute>, false).[0] :?> TableAttribute
+    tableAtt.Name
+
 // Dapper.Contrib.Extensions' Data.IDbConnection.Insert<T> seems to have a bug. TODO: Investigate and submit a PR.
 let insert entity =
     let entityType = entity.GetType()
 
-    let tableAtt = entityType.GetCustomAttributes(typedefof<TableAttribute>, false).[0] :?> TableAttribute
-    let table = tableAtt.Name
+    let tableName = getTableName entityType
 
     let properties = entityType.GetProperties()
     let propertyNames = properties |> Array.map (fun p -> "@" + p.Name)
     let columnNames = properties |> Array.map (fun p -> p.Name.ToLowerInvariant())
 
-    let sql = "insert " + table + "(" + String.Join(", ", columnNames) + ") values(" + String.Join(", ", propertyNames) + ")"
+    let sql = "insert " + tableName + "(" + String.Join(", ", columnNames) + ") values(" + String.Join(", ", propertyNames) + ")"
 
     getConnection().Execute(sql, entity)
 
-let selectWhere<'Entity> (filters : Collections.Generic.IDictionary<string,obj>)= 
+let selectWhere<'Entity> (filters : Collections.Generic.IDictionary<string,obj>) = 
     if filters.Count <> 0 then
         let entityType = typeof<'Entity>
-        let tableAtt = entityType.GetCustomAttributes(typedefof<TableAttribute>, false).[0] :?> TableAttribute
-        let table = tableAtt.Name
+
+        let tableName = getTableName entityType
 
         let properties = entityType.GetProperties()
         let columnNames = properties |> Array.map (fun p -> p.Name.ToLowerInvariant())
 
-        let selectSql = "select " + String.Join(", ", columnNames) + " from " + table
+        let selectSql = "select " + String.Join(", ", columnNames) + " from " + tableName
 
         let keysAsParamaters = filters.Keys |> Seq.map (fun key -> key + " = @" + key)
         let whereSql = "where " + String.Join(" and ", keysAsParamaters)
@@ -45,10 +48,6 @@ let selectWhere<'Entity> (filters : Collections.Generic.IDictionary<string,obj>)
         getConnection().Query<'Entity>(sql,filters)
     else 
         raise <| Exception("Where clause requires at least one filter for selectWhere")    
-
-let private getTableName (entityType : Type) = 
-    let tableAtt = entityType.GetCustomAttributes(typedefof<TableAttribute>, false).[0] :?> TableAttribute
-    tableAtt.Name
 
 /// Warning: This is not type safe. The value of newValue may be coerced by the database into the column type. 
 /// E.g. Anything can be inserted into a string column. A float will be truncated and inserted into an int column. 
@@ -73,3 +72,12 @@ let updateFieldWhere<'Entity> (propName : string) newValue (filters : Collection
 
 let updateField<'Entity> recordId (propName : string) newValue = 
     updateFieldWhere<'Entity> propName newValue (dict [ "id", box recordId])
+
+/// Currently deleting based on column called Id. Could expand to use Key attribute if necessary ( see https://github.com/StackExchange/dapper-dot-net/tree/master/Dapper.Contrib#special-attributes ) 
+let deleteById<'Entity> recordId = 
+    let entityType = typeof<'Entity>
+    let tableName = getTableName entityType
+
+    let sql = "delete from " + tableName + " where `id`=@id"
+    let result = getConnection().Execute(sql, (dict [ "id", box recordId]))
+    result = 1
