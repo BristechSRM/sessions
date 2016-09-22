@@ -15,3 +15,5 @@ let add (me: MeetupEvent) =
     guid
 
 let delete (meetupEventId : Guid) = deleteById<MeetupEvent> meetupEventId
+
+let updateField (meetupEventId : Guid) (propName : string) newValue = Database.updateField<MeetupEvent> meetupEventId propName newValue

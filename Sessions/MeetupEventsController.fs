@@ -1,5 +1,6 @@
 ﻿namespace Controllers
 
+open RestModels
 open DataTransform
 open Models
 open MeetupEventsRepository
@@ -10,6 +11,17 @@ open System.Web.Http
 
 type MeetupEventsController() = 
     inherit ApiController()
+
+    let patch (id : Guid) (op : PatchOp) = 
+        match op.Path.ToLowerInvariant() with
+        | "publisheddate" -> 
+            if String.IsNullOrWhiteSpace op.Value then
+                updateField id op.Path None //Published date is optional, so None is allowed
+            else 
+                match DateTime.TryParse op.Value with
+                | true, date -> updateField id op.Path date
+                | false, _ -> raise <| Exception("Error: patch value could not be parsed as a DateTime. PublishedDate must be a DateTime")
+        | _ -> raise <| Exception(sprintf "Error: Patch currently does not accept: %s for event" op.Path)
 
     member this.Get() = 
         this.Request.CreateResponse(HttpStatusCode.OK, getAll() |> Seq.map MeetupEvent.toModel)
@@ -32,3 +44,6 @@ type MeetupEventsController() =
         //Update event with removing meetupEventId as well
         EventsRepository.updateField meetupEvent.EventId "meetupEventId" None |> ignore
         this.Request.CreateResponse(HttpStatusCode.NoContent)
+
+    member this.Patch(id : Guid, op: PatchOp) = 
+        this.Request.CreateResponse(HttpStatusCode.NoContent, patch id op)
