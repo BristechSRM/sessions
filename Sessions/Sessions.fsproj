@@ -63,6 +63,7 @@
     <Compile Include="EventsController.fs" />
     <Compile Include="HandlesController.fs" />
     <Compile Include="ProfilesController.fs" />
+    <Compile Include="NotesController.fs" />
     <Compile Include="SessionsController.fs" />
     <Compile Include="MeetupEventsController.fs" />
     <Compile Include="LogHttpMiddleware.fs" />
