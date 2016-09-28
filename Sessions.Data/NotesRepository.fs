@@ -15,3 +15,5 @@ let add (note : Note) =
 let getAll() = getConnection().GetAll<Note>()
 
 let getNotesBySessionId (sessionId : Guid) = selectWhere<Note> (dict [ "SessionId", box sessionId ])
+
+let updateField (guid : Guid) (propName : string) newValue = Database.updateField<Note> guid propName newValue
