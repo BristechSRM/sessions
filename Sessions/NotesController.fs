@@ -28,3 +28,8 @@ type NotesController() =
     member x.Post(note : Note) = (fun () -> note |> Note.toEntity |> add) |> Catch.respond x HttpStatusCode.Created
 
     member x.Patch(id : Guid, op: PatchOp) = (fun () -> patch id op) |> Catch.respond x HttpStatusCode.NoContent
+
+    member x.Delete(id : Guid) =
+        let note = get id
+        delete note.Id |> ignore
+        x.Request.CreateResponse(HttpStatusCode.NoContent)
