@@ -25,7 +25,11 @@ type NotesController() =
     [<HttpGet>]
     member x.GetBySessionId(sessionId : Guid) = (fun () -> getNotesBySessionId sessionId |> Seq.map Note.toModel) |> Catch.respond x HttpStatusCode.OK
 
-    member x.Post(note : Note) = (fun () -> note |> Note.toEntity |> add) |> Catch.respond x HttpStatusCode.Created
+    member x.Post(note : Note) = 
+        if String.IsNullOrWhiteSpace note.Note then
+            x.Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Empty notes are not allowed to be created.")
+        else
+            x.Request.CreateResponse(HttpStatusCode.Created, note |> Note.toEntity |> add)
 
     member x.Patch(id : Guid, op: PatchOp) = (fun () -> patch id op) |> Catch.respond x HttpStatusCode.NoContent
 
