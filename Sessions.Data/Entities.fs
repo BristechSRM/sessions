@@ -25,6 +25,15 @@ type Profile =
       IsAdmin : bool }
 
 [<CLIMutable>]
+[<Table("notes")>]
+type Note = 
+    { [<Key>] Id : Guid
+      SessionId : Guid
+      DateAdded : DateTime
+      DateModified : DateTime 
+      Note : string }
+
+[<CLIMutable>]
 [<Table("sessions")>]
 type Session = 
     { Id : Guid

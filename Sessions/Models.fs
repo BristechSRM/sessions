@@ -22,6 +22,14 @@ type Profile =
       IsAdmin : bool }
 
 [<CLIMutable>]
+type Note = 
+    { Id : Guid
+      SessionId : Guid
+      DateAdded : DateTime
+      DateModified : DateTime 
+      Note : string }
+
+[<CLIMutable>]
 type Session =
     { Id : Guid
       Title : string

@@ -34,6 +34,20 @@ module Handle =
           Identifier = handle.Identifier
           Type = handle.Type }
 
+module Note = 
+    let toEntity (note : Models.Note) : Entities.Note = 
+        { Id = note.Id 
+          SessionId = note.SessionId
+          DateAdded = note.DateAdded
+          DateModified = note.DateModified
+          Note = note.Note }
+
+    let toModel (note : Entities.Note) : Models.Note = 
+        { Id = note.Id 
+          SessionId = note.SessionId
+          DateAdded = note.DateAdded
+          DateModified = note.DateModified
+          Note = note.Note }
 module Session = 
     let toEntity (session : Models.Session) : Entities.Session = 
         { Id = session.Id
