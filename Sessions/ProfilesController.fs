@@ -13,7 +13,6 @@ type ProfilesController() =
 
     let patch (id: Guid) (op: PatchOp) =
         match op.Path with 
-        | "rating" -> updateField id op.Path <| Int32.Parse(op.Value)
         | "bio" | "forename" | "surname" -> updateField id op.Path op.Value
         | _ ->  raise <| Exception(sprintf "Error: Patch currently does not accept: %s for profile" op.Path)   
         

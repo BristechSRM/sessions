@@ -19,7 +19,6 @@ type Profile =
     { Id : Guid
       Forename : string
       Surname : string
-      Rating : int
       ImageUrl : string
       Bio : string 
       IsAdmin : bool }
